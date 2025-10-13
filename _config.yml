@@ -16,7 +16,7 @@ timezone:
 
 title: Zirajs's blog # the main title
 
-tagline: A text-focused Jekyll theme # it will display as the subtitle
+tagline: A blog, an archive for my notes, and a showcase for my projects. Mostly about cyber security and systems. # it will display as the subtitle
 
 description: >- # used by seo meta and the atom feed
   A blog, an archive for my notes, and a showcase for my projects. Mostly about cyber security and systems.
