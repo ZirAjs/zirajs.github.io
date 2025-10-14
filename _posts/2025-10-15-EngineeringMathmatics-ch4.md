@@ -4,6 +4,7 @@ date: 2025-10-15 06:05:00 +0900
 categories: [others, math, engineering mathmatics]
 tags: [math, chernoff, hoeffding, mgf]     # TAG names should always be lowercase
 math: true
+description: Engineering Mathmatics Chapter 4 정리
 ---
 
 # Lecture 8
