@@ -1,7 +1,7 @@
 ---
 title: EngineeringMathmatics Chapter 4
 date: 2025-10-15 06:05:00 +0900
-categories: [personal notes, engineering mathmatics]
+categories: [others, math, engineering mathmatics]
 tags: [math, chernoff, hoeffding, mgf]     # TAG names should always be lowercase
 math: true
 ---
