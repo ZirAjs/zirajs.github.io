@@ -5,21 +5,19 @@ categories: [others, systemprogramming]
 tags: [construction, linking, loading, linker, loader]     # TAG names should always be lowercase
 ---
 
-🚧Under construction. Only contains one lecture🚧
-
 # Symbols
 
 global symbol, external symbol, local symbol이 존재한다. 
 
-**global symbol**: 모듈에 의해 정의된 symbol 중 다른 모듈에 의해 참조될 수 있는것.
+- **global symbol**: 모듈에 의해 정의된 symbol 중 다른 모듈에 의해 참조될 수 있는것.<br>
     e.g. non-static variables, functions
-**external symbol**: global symbol이 어느 모듈의 입장에서 사용될 경우 external symbol로 불리게 된다.
+- **external symbol**: global symbol이 어느 모듈의 입장에서 사용될 경우 external symbol로 불리게 된다.<br>
     e.g. `external`
-**local symbols**: 해당 모듈에서만 쓰이는 symbol
+- **local symbols**: 해당 모듈에서만 쓰이는 symbol<br>
     e.g. `static` 
 
 > local variable은 symbol이 **아니다**
-{:.prompt-warn}
+{:.prompt-warning}
 
 
 ![](/assets/blog/systemprogramming/linkandload/0.png)
@@ -77,11 +75,11 @@ global symbol, external symbol, local symbol이 존재한다.
 
 여기서 COMMON은 이제 사용이 안 되는 부분인데 linker rule을 보면 알 수 있다.
 
-Rule1. 여러 strong symbol은 금지. **단, COMMON은 예외**
-Rule2. strong symbol이  COMMON 안에 하나, 밖에 하나일 경우 COMMON 밖을 선택.
-Rule3. 여러 COMMON symbol이 있을 경우 랜덤하게 선택.
-=> 문제지점. 그래서 금지됨
-Rule4. weak symbol, strong symbol이 있을 경우 weak는 strong으로 relocated
+Rule1. 여러 strong symbol은 금지. **단, COMMON은 예외**<br>
+Rule2. strong symbol이  COMMON 안에 하나, 밖에 하나일 경우 COMMON 밖을 선택.<br>
+Rule3. 여러 COMMON symbol이 있을 경우 랜덤하게 선택.<br>
+=> 문제지점. 그래서 금지됨<br>
+Rule4. weak symbol, strong symbol이 있을 경우 weak는 strong으로 relocated<br>
 
 Rule3는 그냥 보더라서 프로그램의 integrity를 해칠 수 있고, 게다가 가짜 elf를 제공할 경우, poisoning도 가능하므로 금지됐다.
 
@@ -93,7 +91,7 @@ Rule3는 그냥 보더라서 프로그램의 integrity를 해칠 수 있고, 게
 > ```
 > 
 > `gcc -O2 -fno-common vlun vuln.c -L. -ltrim`으로 빌드하더라도 라이브러리가 COMMON을 사용하므로 여전히 위험하다.
-{: .prompt-warn}
+{: .prompt-warning}
 
 **Take-aways!**
 - Avoid global variables!
@@ -156,13 +154,15 @@ typedef struct{
 
 
 `5: R_X86_64_PC32 foo-0x4` <br>
-=> `*(void *)((char *) (addr_of_section + r.offset(=5:))) = *(__int64 *)((char*)(addr_of_r.symbol + r.addend(=[-0x4]) - [address_of_section + r.offset(=5:)]))`<br>
-복잡해보이니 쉽게 써보았다.
+=> `*(void *)((char *) (addr_of_section + r.offset(=5:))) = *(__int64 *)((char*)(addr_of_r.symbol + r.addend(=[-0x4]) - [address_of_section + r.offset(=5:)]))`
+
+복잡해보이니 쉽게 아래에 정리해보았다.<br>
 당연히, 아까 `00 00 00 00` 부분을 바꾸는 것이 목적이다. 그래서 `addr_of_section + r.offset(=5:)` 주소를 목적지로 하는 것이다. 
 아까 처음 예시에서도, `22: e8 00 00 00 00` 이었으므로 `00`이 시작하는 `23`을 offset으로 정의한 것이다. 
-그러면 거기에 무슨 값을 저장할거냐면, pc-relative addressing으로 정의한 foo 함수의 주소를 넣을 것이다. 그러면 자연스레 `call foo`가 되기 때문이다.
+거기에 무슨 값을 저장할거냐면, pc-relative addressing으로 정의한 foo 함수의 주소를 넣을 것이다. 그러면 자연스레 `call foo`가 되기 때문이다.
 원래 주소가 `r.symbol + r.addend`이었으므로 거기에 `section + r.offset`을 빼주면, pc-relative한 주소가 될 것이다.
-어? 근데 왜 `r.addend`가 4가 되는 것인가 의문이 들 것이다. 이것은 이미 PC가 증가했을 거기 때문에, `00`이 끝나는 지점을 기준으로 pc를 생각하면 `section + r.offset + 4`가 되었을 것이다. 이것을 보정해주기 위해 -4바이트를 `r.addend`에 저장한 것이다.
+어? 근데 왜 `r.addend`가 4가 되는 것인가 의문이 들 것이다. 
+이것은 이미 PC가 증가했을 거기 때문에, `00`이 끝나는 지점을 기준으로 pc를 생각하면 `section + r.offset + 4`가 되었을 것이다. 이것을 보정해주기 위해 `-0x4`바이트를 `r.addend`에 저장한 것이다.
 
 > x86_64는 가변 길이 ISA이다. 
 > 다행히 가변 길이와 상관없이 `$RIP(PC)`는 무조건 **다음 instruction**을 가리킨다.
