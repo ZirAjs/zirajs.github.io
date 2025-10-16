@@ -64,7 +64,7 @@ RA는 일부 CA의 일을 줄이는 역할로, Identification, User key gen, CA 
 > Thumbprint: 전체 cert의 Hash value. cert에 포함되지는 않는다.
 {: .prompt-tip}
 
-DN애서 여러 필드가 존재한다. organization, name, locality 등 여러 내용이 저장된다는 것을 기억하면 된다.
+DN에는 여러 필드가 존재한다. organization, name, locality 등 여러 내용이 저장된다는 것을 기억하면 된다.
 
 
 ## CA Hierarchy
@@ -160,3 +160,23 @@ CA의 인증서를 공개적인 로그의 형식으로 남겨서 기록하자.
 > 원인은 가짜인증서의 존재여부가 안 알려졌기 때문이다.
 > 따라서 모든 발급된 인증서를 볼 수 있게 하자는 취지.
 {: .prompt-info}
+
+
+# Transport Layer Security (TLS)
+
+## SSL/TLS
+
+기본적으로 http / https의 차이는 다음과 같다.
+
+| http                         | https                               |
+| ---------------------------- | ----------------------------------- |
+| Hyper Text Transfer Protocol | Hyper Text Transfer Protocol Secure |
+| No certificate               | Certificate                         |
+| No encryption                | Encryption                          |
+| No TLS/SSL                   | TLS/SSL                             |
+| No Privacy                   | Privacy                             |
+
+여기서 TLS/SSL에 집중하고자 한다.
+
+![](/assets/blog/pkc-application/5.jpg)
+_Vasilyrosca| Dreamstime.com_
