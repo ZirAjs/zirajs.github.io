@@ -1,7 +1,7 @@
 ---
 title: SystemProgramming Linking & Loading
 date: 2025-10-16 16:05:30 +0900
-categories: [others, systemprogramming]
+categories: [others, SystemProgramming]
 tags: [construction, linking, loading, linker, loader]     # TAG names should always be lowercase
 ---
 
