@@ -77,7 +77,7 @@ $$
 
 $$
 \begin{align*}
-X&= \sum^n_{i=1} X_i \: \text{where}\: X_1, X_2, ..., X_n \:\text{are indep} \\
+X&= \sum^n_{i=1} X_i \; \text{where}\; X_1, X_2, ..., X_n \;\text{are indep} \\
 X_i &\sim \text{Bernoulli}(p_i)
 \end{align*}
 $$
@@ -191,7 +191,7 @@ $\mathbb{E}[e^{tX}] = \sum_{j=0}^{\infty} \frac{t^{2j}}{(2j)!} \le \sum_{j=0}^{\
 > 우리의 목표는 $m$ 명의 사람을 2개의 그룹으로 나누는 것이고 이때 두 그룹의 속성이 비슷하였으면 한다.
 > 즉,
 >
-> $$ | \{ p \in A \:| \:p\: \text{has property}\: i \}| \approx | p \in \bar{A}\: |\: p \:\text{has property}\: i | , \:\forall i.$$
+> $$ | \{ p \in A \;| \;p\; \text{has property}\; i \}| \approx | p \in \bar{A}\; |\; p \;\text{has property}\; i | , \;\forall i.$$
 >
 > 이길 원한다.
 {: .prompt-info}
@@ -265,14 +265,14 @@ $\because k \le m$. 한편 $k > \sqrt{4m \ln n}$ 가정으로 분모는 $0$이 �
 
 **Hoeffding bound**는 구간에 종속된 확률변수에 대한 bound를 제공한다.
 
-서로 독립인 확률변수 $X_1, X_2, ..., X_n$에 대해 $\forall i \in [1,n], \mathbb{E}[X_i] = \mu \:\text{and}\: \Pr(a \le X_i \le b) =1$ 라면
+서로 독립인 확률변수 $X_1, X_2, ..., X_n$에 대해 $\forall i \in [1,n], \mathbb{E}[X_i] = \mu \;\text{and}\; \Pr(a \le X_i \le b) =1$ 라면
 
 $$
 \Pr\left( \left| \frac{1}{n} \sum_i X_i - \mu \right| \ge \epsilon \right) \le 2 \exp\left( \frac{-2n\epsilon^2}{(b - a)^2} \right)
 $$
 
 더 일반적으로는, <br>
-서로 독립인 확률변수 $X_1, X_2, ..., X_n$에 대해 $\forall i \in [1,n], \mathbb{E}[X_i] = \mu_iD \:\text{and}\: \Pr(a \le X_i \le b) =1$ 라면
+서로 독립인 확률변수 $X_1, X_2, ..., X_n$에 대해 $\forall i \in [1,n], \mathbb{E}[X_i] = \mu_iD \;\text{and}\; \Pr(a \le X_i \le b) =1$ 라면
 
 $$
 \Pr\left( \left| \sum_i X_i - \sum_i \mu_i \right| \ge \epsilon \right) \le 2 \exp\left( \frac{-2\epsilon^2}{\sum_i (b_i - a_i)^2} \right)
