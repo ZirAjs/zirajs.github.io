@@ -23,7 +23,7 @@ description: >- # used by seo meta and the atom feed
 
 # Fill in the protocol & hostname for your site.
 # E.g. 'https://username.github.io', note that it does not end with a '/'.
-url: "https://zirajs.github.io" 
+url: "https://zirajs.github.io"
 
 github:
   username: zirajs # change to your GitHub username
@@ -96,11 +96,11 @@ theme_mode: # [light | dark]
 cdn:
 
 # the avatar on sidebar, support local or CORS resources
-avatar: assets/img/avatar.png 
+avatar: assets/img/avatar.png
 
 # The URL of the site-wide social preview image used in SEO `og:image` meta tag.
 # It can be overridden by a customized `page.image` in front matter.
-social_preview_image: assets/img/avatar.png  # string, local or CORS resources
+social_preview_image: assets/img/avatar.png # string, local or CORS resources
 
 # boolean type, the global switch for TOC in posts.
 toc: true
@@ -222,3 +222,7 @@ jekyll-archives:
   permalinks:
     tag: /tags/:name/
     category: /categories/:name/
+
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
