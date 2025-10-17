@@ -150,6 +150,11 @@ paginate: 10
 # The base URL of your site
 baseurl: ""
 
+# Plugins
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+
 # ------------ The following options are not recommended to be modified ------------------
 
 kramdown:
@@ -222,7 +227,3 @@ jekyll-archives:
   permalinks:
     tag: /tags/:name/
     category: /categories/:name/
-
-plugins:
-  - jekyll-feed
-  - jekyll-sitemap
