@@ -1,5 +1,5 @@
 ---
-title: NetworkSecurity.PKC_Application
+title: PKC Application
 date: 2025-10-16 13:38:13 +0900
 categories: [others, NetworkSecurity]
 tags: [RSA, ElGamal]    
